@@ -1,0 +1,27 @@
+﻿@using Newtonsoft.Json
+@using WebApi.Models;
+
+
+@{
+    ViewData["Title"] = "Cassette";
+}
+
+@model List<CassetteView>
+
+@{
+        if (Model != null)
+            foreach (var d in Model)
+            {
+                <div class="row" data-id="@d.id_cassette" data-toggle="modal" data-target="products-modal-@d.id_cassette">
+                    <div class="collumn">
+                        <div class="coll">Id: @d.id_cassette</div>
+                        <div class="coll">Name: @d.name_movie</div>
+                        <div class="coll">Name: @d.genre</div>
+                    </div>
+                </div>
+            }
+    }
+}
+
+
+
