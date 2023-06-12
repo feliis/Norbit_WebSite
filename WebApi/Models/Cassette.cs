@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 
 namespace WebApi.Models
@@ -28,6 +29,10 @@ namespace WebApi.Models
         public int price { get; set; }
 
         public int qty { get; set; }
+
+        public Country country { get; set; }
+
+        public Genre genre { get; set; }
 
         public virtual int NewIndex()
         {

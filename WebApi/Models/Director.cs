@@ -15,9 +15,6 @@ namespace WebApi.Models
 
         public string surname { get; set; }
 
-        [ForeignKey("Country")]
-        public int id_country { get; set; }
-
         public virtual int NewIndex()
         {
             using (ContextDB DB = new ContextDB())

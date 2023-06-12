@@ -1,11 +1,42 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using WebApi.Models;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+
+
 
 namespace WebApi.Controllers
 {
     public class CassetteController : Controller
     {
+
+        [Route("Show/[controller]/{id_cassette}")]
+        [HttpGet]
+        public async Task<IActionResult> ShowAll()
+        {
+            using (ContextDB db = new ContextDB())
+            {
+                var cassetteList = await db.cassette
+                .Include(s => s.country)
+                .Include(s => s.genre)
+                .ToListAsync();
+
+
+
+                var cassetteViewList = cassetteList.Select(s => new CassetteView
+                {
+                    id_cassette = s.id_cassette,
+                    name_movie = s.name_movie,
+                    genre = s.genre.name_genre,
+                    country = s.country.name_country,
+                    year = s.year_movie,
+                    price = s.price,
+                    qty = s.qty
+                }).ToList();
+
+                return Ok(cassetteViewList);
+            }
+        }
 
         [Route("Add/[controller]")]
         [HttpPost]
@@ -24,16 +55,7 @@ namespace WebApi.Controllers
             }
         }
 
-        [Route("Show/[controller]")]
-        [HttpGet]
-        public IActionResult Show()
-        {
-            ContextDB DB = new ContextDB();
-            Cassette newCassette = new Cassette();
-            var cassette = DB.cassette.ToList();
-            return Ok(cassette);
-        }
-
+        
 
         [Route("DeleteCassette/[controller]")]
         [HttpDelete]

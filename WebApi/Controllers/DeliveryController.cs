@@ -29,7 +29,6 @@ namespace WebApi.Controllers
         public IActionResult Show()
         {
             ContextDB DB = new ContextDB();
-            Delivery newDelivery = new Delivery();
             var delivery = DB.delivery.ToList();
             return Ok(delivery);
         }

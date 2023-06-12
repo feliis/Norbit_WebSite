@@ -29,7 +29,6 @@ namespace WebApi.Controllers
         public IActionResult Show()
         {
             ContextDB DB = new ContextDB();
-            Employee newEmployee = new Employee();
             var employee = DB.employee.ToList();
             return Ok(employee);
         }

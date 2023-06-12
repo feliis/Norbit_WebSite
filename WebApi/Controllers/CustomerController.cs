@@ -29,7 +29,6 @@ namespace WebApi.Controllers
         public IActionResult Show()
         {
             ContextDB DB = new ContextDB();
-            Customer newCustomer = new Customer();
             var customer = DB.customer.ToList();
             return Ok(customer);
         }
