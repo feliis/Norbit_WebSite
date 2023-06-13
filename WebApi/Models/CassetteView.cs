@@ -18,6 +18,10 @@ namespace WebApi.Models
 
         public int year { get; set; }
 
+        public string director_firstname { get; set; }
+
+        public string director_surname { get; set; }
+
         public int price { get; set; }
 
         public int qty { get; set; }

@@ -10,7 +10,7 @@ namespace WebApi.Controllers
     public class CassetteController : Controller
     {
 
-        [Route("Show/[controller]/{id_cassette}")]
+        [Route("Show/[controller]")]
         [HttpGet]
         public async Task<IActionResult> ShowAll()
         {
@@ -19,6 +19,7 @@ namespace WebApi.Controllers
                 var cassetteList = await db.cassette
                 .Include(s => s.country)
                 .Include(s => s.genre)
+                .Include(s => s.director)
                 .ToListAsync();
 
 
@@ -31,6 +32,8 @@ namespace WebApi.Controllers
                     country = s.country.name_country,
                     year = s.year_movie,
                     price = s.price,
+                    director_firstname = s.director.firstname,
+                    director_surname = s.director.surname,
                     qty = s.qty
                 }).ToList();
 
@@ -57,8 +60,8 @@ namespace WebApi.Controllers
 
         
 
-        [Route("DeleteCassette/[controller]")]
-        [HttpDelete]
+        [Route("DeleteCassette/[controller]/{id_cassette}")]
+        [HttpGet]
         public IActionResult DeleteCassetteByID(int id_cassette)
         {
             using (ContextDB DB = new ContextDB())

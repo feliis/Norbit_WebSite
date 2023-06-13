@@ -10,18 +10,15 @@ namespace WebApi.Models
     public class Cassette
     {
 
-        [Key] 
+        [Key]
         public int id_cassette { get; set; }
 
         public string name_movie { get; set; }
 
-        [ForeignKey("Genre")]
         public int id_genre { get; set; }
 
-        [ForeignKey("Country")]
         public int id_country { get; set; }
 
-        [ForeignKey("Director")]
         public int id_director { get; set; }
 
         public int year_movie { get; set; }
@@ -30,9 +27,14 @@ namespace WebApi.Models
 
         public int qty { get; set; }
 
+        [ForeignKey("id_country")]
         public Country country { get; set; }
 
+        [ForeignKey("id_genre")]
         public Genre genre { get; set; }
+
+        [ForeignKey("id_director")]
+        public Director director { get; set; }
 
         public virtual int NewIndex()
         {
