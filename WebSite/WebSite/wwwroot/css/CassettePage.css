@@ -1,0 +1,91 @@
+.table {
+    width: 100%;
+    border: none;
+    margin-bottom: 20px;
+}
+
+    .table thead th {
+        font-weight: bold;
+        text-align: left;
+        border: none;
+        padding: 10px 15px;
+        background: #d8d8d8;
+        font-size: 14px;
+    }
+
+    .table thead tr th:first-child {
+        border-radius: 8px 0 0 8px;
+    }
+
+    .table thead tr th:last-child {
+        border-radius: 0 8px 8px 0;
+    }
+
+    .table tbody td {
+        text-align: left;
+        border: none;
+        padding: 10px 15px;
+        font-size: 14px;
+        vertical-align: top;
+    }
+
+    .table tbody tr:nth-child(even) {
+        background: #f3f3f3;
+    }
+
+    .table tbody tr td:first-child {
+        border-radius: 8px 0 0 8px;
+    }
+
+    .table tbody tr td:last-child {
+        border-radius: 0 8px 8px 0;
+    }
+
+.button-container {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
+}
+
+button {
+    font-family: inherit;
+    font-size: inherit;
+    color: #ffffff;
+    padding: 10px 15px;
+    border: 0;
+    margin: 0;
+    outline: 0;
+    border-radius: 0;
+    transition: background-color 225ms ease-out;
+    &.add;
+{
+    $background-color: #147eff;
+    background-color: $background-color;
+    &:hover
+
+{
+    background-color: lighten($background-color, 10%);
+}
+
+&:active {
+    background-color: darken($background-color, 10%);
+}
+
+}
+&.add {
+    @include button(#147eff);
+}
+
+&.delete {
+    @include button(#d11800);
+}
+
+svg {
+    fill: #ffffff;
+    vertical-align: middle;
+    padding: 0;
+    margin: 0;
+}
+}
+}

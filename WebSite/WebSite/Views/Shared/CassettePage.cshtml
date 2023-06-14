@@ -2,26 +2,64 @@
 @using WebApi.Models;
 
 
+<link rel="stylesheet" href="~/css/CassettePage.css" asp-append-version="true" />
+
 @{
     ViewData["Title"] = "Cassette";
 }
 
 @model List<CassetteView>
 
-@{
-        if (Model != null)
-            foreach (var d in Model)
-            {
-                <div class="row" data-id="@d.id_cassette" data-toggle="modal" data-target="products-modal-@d.id_cassette">
-                    <div class="collumn">
-                        <div class="coll">Id: @d.id_cassette</div>
-                        <div class="coll">Name: @d.name_movie</div>
-                        <div class="coll">Name: @d.genre</div>
-                    </div>
-                </div>
+<div class="container">
+    @*<div class="button-container">
+        <button class="delete" title="delete selected">
+            <svg viewBox="0 0 448 512" width="16" title="trash-alt">
+                <path d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z")
+                button.primary(title="Add New Data"></path>
+            </svg>
+        </button>
+        <button class="add">
+            <svg viewBox="0 0 512 512" width="16" title="plus-circle">
+                <path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 276c0 6.6-5.4 12-12 12h-92v92c0 6.6-5.4 12-12 12h-56c-6.6 0-12-5.4-12-12v-92h-92c-6.6 0-12-5.4-12-12v-56c0-6.6 5.4-12 12-12h92v-92c0-6.6 5.4-12 12-12h56c6.6 0 12 5.4 12 12v92h92c6.6 0 12 5.4 12 12v56z")></path>
+            </svg>
+        </button>
+    </div>*@
+    <a class="nav-link text-dark" asp-area="" asp-controller="Cassette" asp-action="AddNewCassette">Add new</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Year</th>
+                <th scope="col">Counry</th>
+                <th scope="col">Genre</th>
+                <th scope="col">Director</th>
+                <th scope="col">Price</th>
+                <th scope="col">Qty</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @{
+                if (Model != null)
+                    foreach (var d in Model)
+                    {
+                        <tr scope="row" class="active">
+                            <td>@d.id_cassette</td>
+                            <td>@d.name_movie</td>
+                            <td>@d.year</td>
+                            <td>@d.country</td>
+                            <td>@d.genre</td>
+                            <td>@d.director_firstname @d.director_surname</td>
+                            <td>@d.price ₽</td>
+                            <td>@d.qty</td>
+                            <td>
+                                <a asp-controller="DeleteCassette" asp-action="Cassette" asp-route-id="@d.id_cassette">Delete</a>
+                            </td>
+
+                        </tr>
+                    }
             }
-    }
-}
-
-
-
+        </tbody>
+    </table>
+</div>

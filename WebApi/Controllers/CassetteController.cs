@@ -2,8 +2,7 @@
 using WebApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-
-
+using Microsoft.AspNetCore.Cors;
 
 namespace WebApi.Controllers
 {
@@ -41,9 +40,11 @@ namespace WebApi.Controllers
             }
         }
 
-        [Route("Add/[controller]")]
-        [HttpPost]
-        public IActionResult AddCassette([FromBody] Cassette NewCassette)
+        [Route("Add/[controller]/{id_cassette}/{name_movie}/{year_movie}/{id_country}/{id_genre}/{id_director}/{price}")]
+        [HttpGet]
+        [EnableCors(PolicyName = "AllowAll")]
+        public IActionResult AddCassette([FromRoute] int id_cassette, [FromRoute] string name_movie, [FromRoute] int year_movie,
+            [FromRoute] int id_country, [FromRoute] int id_genre, [FromRoute] int id_director, [FromRoute] int price)
         {
             if (!ModelState.IsValid)
             {
@@ -51,7 +52,14 @@ namespace WebApi.Controllers
             }
             using (ContextDB DB = new ContextDB())
             {
+                Cassette NewCassette = new Cassette();
                 NewCassette.id_cassette = NewCassette.NewIndex();
+                NewCassette.name_movie = name_movie;
+                NewCassette.year_movie = year_movie;
+                NewCassette.id_country = id_country;
+                NewCassette.id_genre = id_genre;
+                NewCassette.id_director = id_director;
+                NewCassette.price = price;
                 DB.Add(NewCassette);
                 DB.SaveChanges();
                 return Ok();

@@ -1,0 +1,99 @@
+﻿@using WebApi.Models;
+
+
+
+<h1>Add new cassette</h1>
+
+<script>
+    let ViewBag = @Html.Raw(Json.Serialize(ViewBag.Cassette));
+    console.log(ViewBag);
+</script>
+
+<style>
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+</style>
+
+<form class="cassette-form flex-direction: column" id="cassette-form">
+    <div class="form-group">
+        <label for="name">Name movie</label>
+        <input id="name_movie"></input>
+    </div>
+    <div class="form-group">
+        <label for="year">Year</label>
+        <input id="year_movie"></input>
+    </div>
+
+    <div class="form-group">
+        <label for="">Country</label>
+        <select id="country" name="country" asp-items="@(new SelectList(ViewBag.Country, "id_country", "name_country"))" class="form-control"></select>
+    </div>
+
+    <div class="form-group">
+        <label for="">Genre</label>
+        <select id="genre" name="genre" asp-items="@(new SelectList(ViewBag.Genre, "id_genre", "name_genre"))" class="form-control"></select>
+    </div>
+
+    <div class="form-group">
+        <label for="">Director</label>
+        ViewBag.Director = new List < Director > {
+        }
+        <select id="director" name="director" asp-items="@(new SelectList(from w in (List<Director>)ViewBag.Director
+        select new{id_director = w.id_director, NameDirector = w.firstname + " " + w.surname},"id_director", "NameDirector"))"
+        class="form-control"></select>
+    </div>
+
+    <div class="form-group">
+        <label for="price">Price</label>
+        <input id="price"></input>
+    </div>
+
+    <button type="submit" class="btn btn-primary" id="ButtonAccept">Accept</button>
+
+</form>
+
+<script>
+
+    var button = document.getElementById("ButtonAccept");
+
+    // Получаем элементы по идентификаторам
+    var name_movie = document.getElementById("name_movie");
+    var year_movie = document.getElementById("year_movie");
+    var country = document.getElementById("country");
+    var genre = document.getElementById("genre");
+    var director = document.getElementById("director");
+    var price = document.getElementById("price");
+
+    function clickMe() {
+        // Получаем значения из инпутов
+        let name = name_movie.value;
+        let year = year_movie.value;
+        let id_genre = genre.value;
+        let id_country = country.value;
+        let id_director = director.value;
+        let priceRes = price.value;
+
+
+        let url = `http://localhost:7022/Add/Cassette/${name_movie}/${year_movie}/${id_country}/${id_genre}/${id_director}/${price}`;
+
+
+        fetch(url, {
+            method: 'GET'
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log("Данные успешно добавлены");
+                } else {
+                    console.log("Произошла ошибка: " + response.status);
+                }
+            })
+            .catch(error => {
+                console.error("Произошла ошибка: " + error);
+            });
+    }
+    button.addEventListener("click", clickMe);
+
+</script>
